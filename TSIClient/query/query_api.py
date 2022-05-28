@@ -595,6 +595,7 @@ class QueryApi():
                 "cache-control": "no-cache",
             }
             retry_nb=0
+            timestamp_empty=False
             while True:
                 retry_nb = retry_nb +1
                 try:
@@ -624,11 +625,16 @@ class QueryApi():
                     else:
                         logging.error("TSIClient: The query was unsuccessful, check the format of the function arguments.")
                         raise TSIQueryError(response["error"])
-                if (response["timestamps"] == []) and (retry_nb<10) :
-                    logging.critical("timestamps empty, No data in search span for tag: {tag} - Retry".format(tag=colNames[i]))
+                if (response["timestamps"] == []):
+                    if (retry_nb<15) :
+                        logging.critical("No data in search span for tag: {tag} - Retry".format(tag=colNames[i]))
+                    else:
+                        timestamp_empty=True
                 else:
                     break
-
+            if timestamp_empty:
+                continue
+                
             if requestType == 'aggregateSeries':
                 try:
                     assert i == 0
