@@ -572,7 +572,7 @@ class QueryApi():
                     "projectedVariables": projectedVarNames,
                 }
             }
-
+            
             if requestType == 'aggregateSeries':
                 if isinstance(aggregateList, list):
                     for j in range(0,len(aggregateList)):
@@ -594,6 +594,13 @@ class QueryApi():
                 "Content-Type": "application/json",
                 "cache-control": "no-cache",
             }
+
+
+            print("url",url)
+            print('payload', payload)
+            print('headers', headers)
+            print('params', querystring)
+
             retry_nb=0
             timestamp_empty=False
             while True:
