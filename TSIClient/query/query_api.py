@@ -595,11 +595,10 @@ class QueryApi():
                 "cache-control": "no-cache",
             }
 
-
-            print("url",url)
-            print('payload', payload)
-            print('headers', headers)
-            print('params', querystring)
+            logging.debug("url",url)
+            logging.debug('payload', payload)
+            logging.debug('headers', headers)
+            logging.debug('params', querystring)
 
             retry_nb=0
             timestamp_empty=False
