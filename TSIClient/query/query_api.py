@@ -595,10 +595,10 @@ class QueryApi():
                 "cache-control": "no-cache",
             }
 
-            logging.debug("url",url)
-            logging.debug('payload', payload)
-            logging.debug('headers', headers)
-            logging.debug('params', querystring)
+            logging.error("url:", url)
+            logging.error('payload:', payload)
+            logging.error('headers:', headers)
+            logging.error('params:', querystring)
 
             retry_nb=0
             timestamp_empty=False
