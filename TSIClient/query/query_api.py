@@ -686,7 +686,7 @@ class QueryApi():
                             for idx, agg in enumerate(aggregateList):
                                 currColName  = colNames[i] + "/" + agg
                                 df[currColName] = response["properties"][idx]["values"]
-                        elif :
+                        else :
                             if (response["properties"]):
                                 df[colNames[i]] = response["properties"][0]["values"]
 
