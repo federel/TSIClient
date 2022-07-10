@@ -602,7 +602,7 @@ class QueryApi():
 
             retry_nb=0
             timestamp_empty=False
-            while True:
+            while False:
                 retry_nb = retry_nb +1
                 try:
                     jsonResponse = requests.request(
@@ -623,7 +623,7 @@ class QueryApi():
                 response = json.loads(jsonResponse.text)
 
                 logging.critical('response: {tt}'.format(tt=response))
-                
+
                 if "error" in response:
                     if "innerError" in response["error"]:
                         if response["error"]["innerError"]["code"] == "TimeSeriesQueryNotSupported":
@@ -641,8 +641,8 @@ class QueryApi():
                         timestamp_empty=True
                 else:
                     break
-            if timestamp_empty:
-                continue
+            #if timestamp_empty:
+            #    continue
                 
             if requestType == 'aggregateSeries':
                 try:
