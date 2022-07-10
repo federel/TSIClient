@@ -600,49 +600,43 @@ class QueryApi():
             #logging.critical('headers: {tt}'.format(tt=headers))
             #logging.critical('params: {tt}'.format(tt=querystring))
 
-            retry_nb=0
-            timestamp_empty=False
-            while True:
-                retry_nb = retry_nb +1
-                try:
-                    jsonResponse = requests.request(
-                        "POST",
-                        url,
-                        data=json.dumps(payload),
-                        headers=headers,
-                        params=querystring,
-                    )
-                    jsonResponse.raise_for_status()
-                except requests.exceptions.ConnectTimeout:
-                    logging.error("TSIClient: The request to the TSI api timed out.")
-                    raise
-                except requests.exceptions.HTTPError:
-                    logging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
-                    raise
+            try:
+                jsonResponse = requests.request(
+                    "POST",
+                    url,
+                    data=json.dumps(payload),
+                    headers=headers,
+                    params=querystring,
+                )
+                jsonResponse.raise_for_status()
+            except requests.exceptions.ConnectTimeout:
+                logging.error("TSIClient: The request to the TSI api timed out.")
+                raise
+            except requests.exceptions.HTTPError:
+                logging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
+                raise
 
-                response = json.loads(jsonResponse.text)
+            response = json.loads(jsonResponse.text)
 
-                logging.critical('response: {tt}'.format(tt=response))
+            logging.critical('response: {tt}'.format(tt=response))
                 
-                if "error" in response:
-                    if "innerError" in response["error"]:
-                        if response["error"]["innerError"]["code"] == "TimeSeriesQueryNotSupported":
-                            raise TSIStoreError(
-                                "TSIClient: Warm store not enabled in TSI environment: {id}. Set useWarmStore to False."
-                                    .format(id=self.environmentId),
-                            )
-                    else:
-                        logging.error("TSIClient: The query was unsuccessful, check the format of the function arguments.")
-                        raise TSIQueryError(response["error"])
-                if ((response["timestamps"] == []) and ('continuationToken' not in list(response.keys()))):
-                    if (retry_nb<15) :
-                        logging.critical("No data in search span for tag: {tag} - Retry".format(tag=colNames[i]))
-                    else:
-                        timestamp_empty=True
-                elif ('continuationToken' in list(response.keys())):
-                    break
-            if timestamp_empty:
-                continue
+            if "error" in response:
+                if "innerError" in response["error"]:
+                    if response["error"]["innerError"]["code"] == "TimeSeriesQueryNotSupported":
+                        raise TSIStoreError(
+                            "TSIClient: Warm store not enabled in TSI environment: {id}. Set useWarmStore to False."
+                                .format(id=self.environmentId),
+                        )
+                else:
+                    logging.error("TSIClient: The query was unsuccessful, check the format of the function arguments.")
+                    raise TSIQueryError(response["error"])
+
+            if ((response["timestamps"] == []) and ('continuationToken' not in list(response.keys()))):
+                logging.critical("No data in search span for tag: {tag}".format(tag=colNames[i]))
+
+            if ((response["timestamps"] == []) and ('continuationToken' in list(response.keys()))):
+                logging.critical("Continuation token with empty timestamp for tag: {tag}".format(tag=colNames[i]))
+
                 
             if requestType == 'aggregateSeries':
                 try:
