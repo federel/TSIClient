@@ -635,10 +635,11 @@ class QueryApi():
             #if ((response["timestamps"] == []) and ('continuationToken' not in list(response.keys()))):
             #    logging.critical("No data in search span for tag: {tag}".format(tag=colNames[i]))
 
-            #if ((response["timestamps"] == []) and ('continuationToken' in list(response.keys()))):
-            #    logging.critical("Continuation token with empty timestamp for tag: {tag}".format(tag=colNames[i]))
+            if ('continuationToken' in list(response.keys())):
+                logging.critical("Continuation token with empty timestamp for tag: {tag}".format(tag=colNames[i]))
 
-            if 'continuationToken' in list(response.keys()):
+            if ('continuationToken' in list(response.keys())):
+                logging.critical("*******Retrying with token*********")
                 headers = {
                     "x-ms-client-application-name": self._applicationName,
                      "Authorization": authorizationToken,
