@@ -687,7 +687,8 @@ class QueryApi():
                                 currColName  = colNames[i] + "/" + agg
                                 df[currColName] = response["properties"][idx]["values"]
                         else:
-                            df[colNames[i]] = response["properties"][0]["values"]
+                            if not(response ["properties"] == []):
+                                df[colNames[i]] = response["properties"][0]["values"]
 
                 finally:
                     logging.critical("Loaded data for tag: {tag}".format(tag=colNames[i]))
