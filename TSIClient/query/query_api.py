@@ -596,9 +596,9 @@ class QueryApi():
             }
 
             #logging.critical("url:", url)
-            logging.critical('payload: {tt}'.format(tt=json.dumps(payload)))
-            logging.critical('headers: {tt}'.format(tt=headers))
-            logging.critical('params: {tt}'.format(tt=querystring))
+            #logging.critical('payload: {tt}'.format(tt=json.dumps(payload)))
+            #logging.critical('headers: {tt}'.format(tt=headers))
+            #logging.critical('params: {tt}'.format(tt=querystring))
 
             retry_nb=0
             timestamp_empty=False
@@ -621,6 +621,8 @@ class QueryApi():
                     raise
 
                 response = json.loads(jsonResponse.text)
+                
+                logging.critical('response: {tt}'.format(tt=response))
                 if "error" in response:
                     if "innerError" in response["error"]:
                         if response["error"]["innerError"]["code"] == "TimeSeriesQueryNotSupported":
