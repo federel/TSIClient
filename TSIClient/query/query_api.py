@@ -621,8 +621,9 @@ class QueryApi():
                     raise
 
                 response = json.loads(jsonResponse.text)
-                
+
                 logging.critical('response: {tt}'.format(tt=response))
+                
                 if "error" in response:
                     if "innerError" in response["error"]:
                         if response["error"]["innerError"]["code"] == "TimeSeriesQueryNotSupported":
