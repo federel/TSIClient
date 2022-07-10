@@ -593,6 +593,7 @@ class QueryApi():
                 "Authorization": authorizationToken,
                 "Content-Type": "application/json",
                 "cache-control": "no-cache",
+                'x-ms-continuation': "",
             }
 
             #logging.critical("url:", url)
@@ -687,7 +688,7 @@ class QueryApi():
                                 currColName  = colNames[i] + "/" + agg
                                 df[currColName] = response["properties"][idx]["values"]
                         else:
-                            if (response["properties"]):
+                            if (response["properties"]): #vrai si non vide
                                 df[colNames[i]] = response["properties"][0]["values"]
 
                 finally:
