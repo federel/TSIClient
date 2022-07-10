@@ -631,11 +631,11 @@ class QueryApi():
                     logging.error("TSIClient: The query was unsuccessful, check the format of the function arguments.")
                     raise TSIQueryError(response["error"])
 
-            if ((response["timestamps"] == []) and ('continuationToken' not in list(response.keys()))):
-                logging.critical("No data in search span for tag: {tag}".format(tag=colNames[i]))
+            #if ((response["timestamps"] == []) and ('continuationToken' not in list(response.keys()))):
+            #    logging.critical("No data in search span for tag: {tag}".format(tag=colNames[i]))
 
-            if ((response["timestamps"] == []) and ('continuationToken' in list(response.keys()))):
-                logging.critical("Continuation token with empty timestamp for tag: {tag}".format(tag=colNames[i]))
+            #if ((response["timestamps"] == []) and ('continuationToken' in list(response.keys()))):
+            #    logging.critical("Continuation token with empty timestamp for tag: {tag}".format(tag=colNames[i]))
 
                 
             if requestType == 'aggregateSeries':
