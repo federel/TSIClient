@@ -674,7 +674,7 @@ class QueryApi():
                                     )
                                 else:
                                     df[currColName] = response["properties"][idx]["values"]
-                        else:
+                        elif not(response ["properties"] == []):
                             df = pd.DataFrame(
                                         {
                                             "timestamp": response["timestamps"],
