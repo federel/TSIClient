@@ -602,7 +602,7 @@ class QueryApi():
 
             retry_nb=0
             timestamp_empty=False
-            while False:
+            while True:
                 retry_nb = retry_nb +1
                 try:
                     jsonResponse = requests.request(
@@ -623,7 +623,7 @@ class QueryApi():
                 response = json.loads(jsonResponse.text)
 
                 logging.critical('response: {tt}'.format(tt=response))
-
+                
                 if "error" in response:
                     if "innerError" in response["error"]:
                         if response["error"]["innerError"]["code"] == "TimeSeriesQueryNotSupported":
@@ -634,15 +634,15 @@ class QueryApi():
                     else:
                         logging.error("TSIClient: The query was unsuccessful, check the format of the function arguments.")
                         raise TSIQueryError(response["error"])
-                if (response["timestamps"] == []):
+                if ((response["timestamps"] == []) and ('continuationToken' in list(response.keys()))):
                     if (retry_nb<15) :
                         logging.critical("No data in search span for tag: {tag} - Retry".format(tag=colNames[i]))
                     else:
                         timestamp_empty=True
                 else:
                     break
-            #if timestamp_empty:
-            #    continue
+            if timestamp_empty:
+                continue
                 
             if requestType == 'aggregateSeries':
                 try:
