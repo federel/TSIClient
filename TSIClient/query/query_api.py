@@ -662,7 +662,7 @@ class QueryApi():
                                 )
                 except:
                     if df.empty:
-                        if isinstance(aggregateList, list) and not(response ["properties"] == []:
+                        if isinstance(aggregateList, list) and not(response ["properties"] == []):
                             for idx, agg in enumerate(aggregateList):
                                 currColName = colNames[i] + "/" + agg
                                 if idx == 0:
