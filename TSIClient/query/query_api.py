@@ -641,7 +641,7 @@ class QueryApi():
             if requestType == 'aggregateSeries':
                 try:
                     assert i == 0
-                    if isinstance(aggregateList, list):
+                    if isinstance(aggregateList, list) and (response["properties"]):
                         for idx, agg in enumerate(aggregateList):
                             currColName = colNames[i] + "/" + agg
                             if idx == 0:
@@ -662,7 +662,7 @@ class QueryApi():
                                 )
                 except:
                     if df.empty:
-                        if isinstance(aggregateList, list) and not(response ["properties"] == []):
+                        if isinstance(aggregateList, list) and (response["properties"]):
                             for idx, agg in enumerate(aggregateList):
                                 currColName = colNames[i] + "/" + agg
                                 if idx == 0:
@@ -674,7 +674,7 @@ class QueryApi():
                                     )
                                 else:
                                     df[currColName] = response["properties"][idx]["values"]
-                        elif not(response ["properties"] == []):
+                        elif (response["properties"]):
                             df = pd.DataFrame(
                                         {
                                             "timestamp": response["timestamps"],
@@ -682,12 +682,12 @@ class QueryApi():
                                         }
                                     )
                     else:
-                        if isinstance(aggregateList, list):
+                        if isinstance(aggregateList, list) and (response["properties"]):
                             for idx, agg in enumerate(aggregateList):
                                 currColName  = colNames[i] + "/" + agg
                                 df[currColName] = response["properties"][idx]["values"]
-                        else:
-                            if not(response ["properties"] == []):
+                        elif :
+                            if (response["properties"]):
                                 df[colNames[i]] = response["properties"][0]["values"]
 
                 finally:
