@@ -639,7 +639,7 @@ class QueryApi():
                         logging.critical("No data in search span for tag: {tag} - Retry".format(tag=colNames[i]))
                     else:
                         timestamp_empty=True
-                else:
+                elif ('continuationToken' in list(response.keys())):
                     break
             if timestamp_empty:
                 continue
