@@ -593,7 +593,7 @@ class QueryApi():
                 "Authorization": authorizationToken,
                 "Content-Type": "application/json",
                 "cache-control": "no-cache",
-                'x-ms-continuation': "",
+                'x-ms-continuation': "null",
             }
 
             #logging.critical("url:", url)
