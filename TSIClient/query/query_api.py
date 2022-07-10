@@ -593,12 +593,11 @@ class QueryApi():
                 "Authorization": authorizationToken,
                 "Content-Type": "application/json",
                 "cache-control": "no-cache",
-                'x-ms-continuation': "null",
             }
 
             #logging.critical("url:", url)
             #logging.critical('payload: {tt}'.format(tt=json.dumps(payload)))
-            #logging.critical('headers: {tt}'.format(tt=headers))
+            logging.critical('headers Q1: {tt}'.format(tt=headers))
             #logging.critical('params: {tt}'.format(tt=querystring))
 
             try:
@@ -642,11 +641,12 @@ class QueryApi():
                 logging.critical("*******Retrying with token*********")
                 headers = {
                     "x-ms-client-application-name": self._applicationName,
-                     "Authorization": authorizationToken,
+                    "Authorization": authorizationToken,
                     "Content-Type": "application/json",
                     "cache-control": "no-cache",
                     'x-ms-continuation': response['continuationToken'],
                 }
+                logging.critical('headers Q2: {tt}'.format(tt=headers))
                 try:
                     jsonResponse = requests.request(
                         "POST",
