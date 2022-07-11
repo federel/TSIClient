@@ -597,7 +597,7 @@ class QueryApi():
 
             #logging.critical("url:", url)
             #logging.critical('payload: {tt}'.format(tt=json.dumps(payload)))
-            logging.critical('headers Q1: {tt}'.format(tt=headers))
+            #logging.critical('headers Q1: {tt}'.format(tt=headers))
             #logging.critical('params: {tt}'.format(tt=querystring))
 
             try:
@@ -618,7 +618,7 @@ class QueryApi():
 
             response = json.loads(jsonResponse.text)
 
-            logging.critical('response: {tt}'.format(tt=response))
+            #logging.critical('response: {tt}'.format(tt=response))
                 
             if "error" in response:
                 if "innerError" in response["error"]:
@@ -638,7 +638,7 @@ class QueryApi():
                 logging.critical("Continuation token with empty timestamp for tag: {tag}".format(tag=colNames[i]))
 
             if ('continuationToken' in list(response.keys())):
-                logging.critical("*******Retrying with token*********")
+                #logging.critical("*******Retrying with token*********")
                 headers = {
                     "x-ms-client-application-name": self._applicationName,
                     "Authorization": authorizationToken,
@@ -646,7 +646,7 @@ class QueryApi():
                     "cache-control": "no-cache",
                     'x-ms-continuation': response['continuationToken'],
                 }
-                logging.critical('headers Q2: {tt}'.format(tt=headers))
+                #logging.critical('headers Q2: {tt}'.format(tt=headers))
                 try:
                     jsonResponse = requests.request(
                         "POST",
@@ -665,7 +665,7 @@ class QueryApi():
 
                 response = json.loads(jsonResponse.text)
 
-                logging.critical('response: {tt}'.format(tt=response))
+                #logging.critical('response: {tt}'.format(tt=response))
                 
                 if "error" in response:
                     if "innerError" in response["error"]:
