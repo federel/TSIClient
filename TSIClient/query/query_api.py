@@ -600,21 +600,30 @@ class QueryApi():
             #logging.critical('headers Q1: {tt}'.format(tt=headers))
             #logging.critical('params: {tt}'.format(tt=querystring))
 
-            try:
-                jsonResponse = requests.request(
-                    "POST",
-                    url,
-                    data=json.dumps(payload),
-                    headers=headers,
-                    params=querystring,
-                )
-                jsonResponse.raise_for_status()
-            except requests.exceptions.ConnectTimeout:
-                logging.error("TSIClient: The request to the TSI api timed out.")
-                raise
-            except requests.exceptions.HTTPError:
-                logging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
-                raise
+            tries = 10
+            for i in range(tries):
+                try:
+                    jsonResponse = requests.request(
+                        "POST",
+                        url,
+                        data=json.dumps(payload),
+                        headers=headers,
+                        params=querystring,
+                    )
+                    jsonResponse.raise_for_status()
+                except requests.exceptions.ConnectTimeout:
+                    if i < tries - 1: # i is zero indexed
+                        logging.error("TSIClient: The request to the TSI api timed out.")
+                        continue
+                    else:
+                        raise
+                except requests.exceptions.HTTPError:
+                    if i < tries - 1: # i is zero indexed
+                            ogging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
+                            ontinue
+                    else:
+                        raise
+                break
 
             response = json.loads(jsonResponse.text)
 
@@ -643,21 +652,30 @@ class QueryApi():
                     'x-ms-continuation': response['continuationToken'],
                 }
                 #logging.critical('headers Q2: {tt}'.format(tt=headers))
-                try:
-                    jsonResponse = requests.request(
-                        "POST",
-                        url,
-                        data=json.dumps(payload),
-                        headers=headers,
-                        params=querystring,
-                    )
-                    jsonResponse.raise_for_status()
-                except requests.exceptions.ConnectTimeout:
-                    logging.error("TSIClient: The request to the TSI api timed out.")
-                    raise
-                except requests.exceptions.HTTPError:
-                    logging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
-                    raise
+                tries = 10
+                for i in range(tries):
+                    try:
+                        jsonResponse = requests.request(
+                            "POST",
+                            url,
+                            data=json.dumps(payload),
+                            headers=headers,
+                            params=querystring,
+                        )
+                        jsonResponse.raise_for_status()
+                    except requests.exceptions.ConnectTimeout:
+                        if i < tries - 1: # i is zero indexed
+                            logging.error("TSIClient: The request to the TSI api timed out.")
+                            continue
+                        else:
+                            raise
+                    except requests.exceptions.HTTPError:
+                        if i < tries - 1: # i is zero indexed
+                            logging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
+                            continue
+                        else:
+                            raise
+                    break
 
                 response = json.loads(jsonResponse.text)
 
@@ -686,21 +704,30 @@ class QueryApi():
                     'x-ms-continuation': response['continuationToken'],
                 }
                 #logging.critical('headers Q2: {tt}'.format(tt=headers))
-                try:
-                    jsonResponse = requests.request(
-                        "POST",
-                        url,
-                        data=json.dumps(payload),
-                        headers=headers,
-                        params=querystring,
-                    )
-                    jsonResponse.raise_for_status()
-                except requests.exceptions.ConnectTimeout:
-                    logging.error("TSIClient: The request to the TSI api timed out.")
-                    raise
-                except requests.exceptions.HTTPError:
-                    logging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
-                    raise
+                tries = 10
+                for i in range(tries):
+                    try:
+                        jsonResponse = requests.request(
+                            "POST",
+                            url,
+                            data=json.dumps(payload),
+                            headers=headers,
+                            params=querystring,
+                        )
+                        jsonResponse.raise_for_status()
+                    except requests.exceptions.ConnectTimeout:
+                        if i < tries - 1: # i is zero indexed
+                            logging.error("TSIClient: The request to the TSI api timed out.")
+                            continue
+                        else:
+                            raise
+                    except requests.exceptions.HTTPError:
+                        if i < tries - 1: # i is zero indexed
+                            logging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
+                            continue
+                        else:
+                            raise
+                    break
 
                 response = json.loads(jsonResponse.text)
 
@@ -729,21 +756,30 @@ class QueryApi():
                     'x-ms-continuation': response['continuationToken'],
                 }
                 #logging.critical('headers Q2: {tt}'.format(tt=headers))
-                try:
-                    jsonResponse = requests.request(
-                        "POST",
-                        url,
-                        data=json.dumps(payload),
-                        headers=headers,
-                        params=querystring,
-                    )
-                    jsonResponse.raise_for_status()
-                except requests.exceptions.ConnectTimeout:
-                    logging.error("TSIClient: The request to the TSI api timed out.")
-                    raise
-                except requests.exceptions.HTTPError:
-                    logging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
-                    raise
+                tries = 10
+                for i in range(tries):
+                    try:
+                        jsonResponse = requests.request(
+                            "POST",
+                            url,
+                            data=json.dumps(payload),
+                            headers=headers,
+                            params=querystring,
+                        )
+                        jsonResponse.raise_for_status()
+                    except requests.exceptions.ConnectTimeout:
+                        if i < tries - 1: # i is zero indexed
+                            logging.error("TSIClient: The request to the TSI api timed out.")
+                            continue
+                        else:
+                            raise
+                    except requests.exceptions.HTTPError:
+                        if i < tries - 1: # i is zero indexed
+                            logging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
+                            continue
+                        else:
+                            raise
+                    break
 
                 response = json.loads(jsonResponse.text)
 
@@ -772,21 +808,30 @@ class QueryApi():
                     'x-ms-continuation': response['continuationToken'],
                 }
                 #logging.critical('headers Q2: {tt}'.format(tt=headers))
-                try:
-                    jsonResponse = requests.request(
-                        "POST",
-                        url,
-                        data=json.dumps(payload),
-                        headers=headers,
-                        params=querystring,
-                    )
-                    jsonResponse.raise_for_status()
-                except requests.exceptions.ConnectTimeout:
-                    logging.error("TSIClient: The request to the TSI api timed out.")
-                    raise
-                except requests.exceptions.HTTPError:
-                    logging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
-                    raise
+                tries = 10
+                for i in range(tries):
+                    try:
+                        jsonResponse = requests.request(
+                            "POST",
+                            url,
+                            data=json.dumps(payload),
+                            headers=headers,
+                            params=querystring,
+                        )
+                        jsonResponse.raise_for_status()
+                    except requests.exceptions.ConnectTimeout:
+                        if i < tries - 1: # i is zero indexed
+                            logging.error("TSIClient: The request to the TSI api timed out.")
+                            continue
+                        else:
+                            raise
+                    except requests.exceptions.HTTPError:
+                        if i < tries - 1: # i is zero indexed
+                            logging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
+                            continue
+                        else:
+                            raise
+                    break
 
                 response = json.loads(jsonResponse.text)
 
