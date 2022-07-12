@@ -631,7 +631,8 @@ class QueryApi():
                     logging.error("TSIClient: The query was unsuccessful, check the format of the function arguments.")
                     raise TSIQueryError(response["error"])
 
-            if ((response["timestamps"] == []) and ('continuationToken' not in list(response.keys()))):
+            #handle first response incomplete with no data and continuationtoken
+            if ((response["timestamps"] == []) and ('continuationToken' in list(response.keys()))):
                 logging.critical("1st Continuation token with empty timestamp for tag: {tag}".format(tag=colNames[i]))
                 #logging.critical("*******Retrying with token*********")
                 headers = {
@@ -672,8 +673,9 @@ class QueryApi():
                     else:
                         logging.error("TSIClient: The query was unsuccessful, check the format of the function arguments.")
                         raise TSIQueryError(response["error"])
-            
-            if ((response["timestamps"] == []) and ('continuationToken' not in list(response.keys()))):
+
+            #handle 2nd response incomplete with no data and continuationtoken
+            if ((response["timestamps"] == []) and ('continuationToken' in list(response.keys()))):
                 logging.critical("2nd Continuation token with empty timestamp for tag: {tag}".format(tag=colNames[i]))
                 #logging.critical("*******Retrying with token*********")
                 headers = {
@@ -715,7 +717,8 @@ class QueryApi():
                         logging.error("TSIClient: The query was unsuccessful, check the format of the function arguments.")
                         raise TSIQueryError(response["error"])
             
-            if ((response["timestamps"] == []) and ('continuationToken' not in list(response.keys()))):
+            #handle 3rd response incomplete with no data and continuationtoken
+            if ((response["timestamps"] == []) and ('continuationToken' in list(response.keys()))):
                 logging.critical("3rd Continuation token with empty timestamp for tag: {tag}".format(tag=colNames[i]))
                 #logging.critical("*******Retrying with token*********")
                 headers = {
@@ -757,7 +760,8 @@ class QueryApi():
                         logging.error("TSIClient: The query was unsuccessful, check the format of the function arguments.")
                         raise TSIQueryError(response["error"])
             
-            if ((response["timestamps"] == []) and ('continuationToken' not in list(response.keys()))):
+            #handle 4th response incomplete with no data and continuationtoken
+            if ((response["timestamps"] == []) and ('continuationToken' in list(response.keys()))):
                 logging.critical("4th Continuation token with empty timestamp for tag: {tag}".format(tag=colNames[i]))
                 #logging.critical("*******Retrying with token*********")
                 headers = {
