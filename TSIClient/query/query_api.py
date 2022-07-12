@@ -619,8 +619,8 @@ class QueryApi():
                         raise
                 except requests.exceptions.HTTPError:
                     if i < tries - 1: # i is zero indexed
-                            ogging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
-                            ontinue
+                            logging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
+                            continue
                     else:
                         raise
                 break
