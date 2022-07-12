@@ -597,7 +597,7 @@ class QueryApi():
 
             #logging.critical("url:", url)
             #logging.critical('payload: {tt}'.format(tt=json.dumps(payload)))
-            logging.critical('headers Q1: {tt}'.format(tt=headers))
+            #logging.critical('headers Q1: {tt}'.format(tt=headers))
             #logging.critical('params: {tt}'.format(tt=querystring))
 
             try:
@@ -631,14 +631,8 @@ class QueryApi():
                     logging.error("TSIClient: The query was unsuccessful, check the format of the function arguments.")
                     raise TSIQueryError(response["error"])
 
-            #if ((response["timestamps"] == []) and ('continuationToken' not in list(response.keys()))):
-            #    logging.critical("No data in search span for tag: {tag}".format(tag=colNames[i]))
-
             if ('continuationToken' in list(response.keys())):
                 logging.critical("Continuation token with empty timestamp for tag: {tag}".format(tag=colNames[i]))
-
-            if ('continuationToken' in list(response.keys())):
-                logging.critical("*******Retrying with token*********")
                 headers = {
                     "x-ms-client-application-name": self._applicationName,
                     "Authorization": authorizationToken,
@@ -646,7 +640,7 @@ class QueryApi():
                     "cache-control": "no-cache",
                     'x-ms-continuation': response['continuationToken'],
                 }
-                logging.critical('headers Q2: {tt}'.format(tt=headers))
+                #logging.critical('headers Q2: {tt}'.format(tt=headers))
                 try:
                     jsonResponse = requests.request(
                         "POST",
@@ -678,7 +672,6 @@ class QueryApi():
                         logging.error("TSIClient: The query was unsuccessful, check the format of the function arguments.")
                         raise TSIQueryError(response["error"])
             
-
 
             if requestType == 'aggregateSeries':
                 try:
