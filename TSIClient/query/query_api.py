@@ -543,6 +543,7 @@ class QueryApi():
         else:
             colNames = timeseries
         
+        logging.critical('colNames: {tt}'.format(tt=colNames))
 
         for i, _ in enumerate(timeseries):
             if timeseries[i] == None:
@@ -595,10 +596,10 @@ class QueryApi():
                 "cache-control": "no-cache",
             }
 
-            logging.critical("url:", url)
-            logging.critical('payload: {tt}'.format(tt=json.dumps(payload)))
-            logging.critical('headers Q1: {tt}'.format(tt=headers))
-            logging.critical('params: {tt}'.format(tt=querystring))
+            #logging.critical("url:", url)
+            #logging.critical('payload: {tt}'.format(tt=json.dumps(payload)))
+            #logging.critical('headers Q1: {tt}'.format(tt=headers))
+            #logging.critical('params: {tt}'.format(tt=querystring))
 
             tries = 5
             for i in range(tries):
