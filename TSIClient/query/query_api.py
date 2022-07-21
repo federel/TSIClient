@@ -595,12 +595,12 @@ class QueryApi():
                 "cache-control": "no-cache",
             }
 
-            #logging.critical("url:", url)
-            #logging.critical('payload: {tt}'.format(tt=json.dumps(payload)))
-            #logging.critical('headers Q1: {tt}'.format(tt=headers))
-            #logging.critical('params: {tt}'.format(tt=querystring))
+            logging.critical("url:", url)
+            logging.critical('payload: {tt}'.format(tt=json.dumps(payload)))
+            logging.critical('headers Q1: {tt}'.format(tt=headers))
+            logging.critical('params: {tt}'.format(tt=querystring))
 
-            tries = 10
+            tries = 5
             for i in range(tries):
                 try:
                     jsonResponse = requests.request(
@@ -613,21 +613,23 @@ class QueryApi():
                     jsonResponse.raise_for_status()
                 except requests.exceptions.ConnectTimeout:
                     if i < tries - 1: # i is zero indexed
-                        logging.error("TSIClient: The request to the TSI api timed out.")
+                        logging.critical("TSIClient: The request to the TSI api timed out, retrying.")
                         continue
                     else:
+                        logging.critical("TSIClient: The request to the TSI api timed out, giving up.")
                         raise
                 except requests.exceptions.HTTPError:
                     if i < tries - 1: # i is zero indexed
-                            logging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
+                            logging.critical("TSIClient: The request to the TSI api returned an unsuccessfull status code, retrying.")
                             continue
                     else:
+                        logging.critical("TSIClient: The request to the TSI api returned an unsuccessfull status code, giving up.")
                         raise
                 break
 
             response = json.loads(jsonResponse.text)
 
-            #logging.critical('response: {tt}'.format(tt=response))
+            logging.critical('response: {tt}'.format(tt=response))
                 
             if "error" in response:
                 if "innerError" in response["error"]:
@@ -643,7 +645,7 @@ class QueryApi():
             #handle first response incomplete with no data and continuationtoken
             if ((response["timestamps"] == []) and ('continuationToken' in list(response.keys()))):
                 logging.critical("1st Continuation token with empty timestamp for tag: {tag}".format(tag=colNames[i]))
-                #logging.critical("*******Retrying with token*********")
+                logging.critical("*******Retrying with token*********")
                 headers = {
                     "x-ms-client-application-name": self._applicationName,
                     "Authorization": authorizationToken,
@@ -651,8 +653,8 @@ class QueryApi():
                     "cache-control": "no-cache",
                     'x-ms-continuation': response['continuationToken'],
                 }
-                #logging.critical('headers Q2: {tt}'.format(tt=headers))
-                tries = 10
+                logging.critical('headers Q2: {tt}'.format(tt=headers))
+                tries = 5
                 for i in range(tries):
                     try:
                         jsonResponse = requests.request(
@@ -665,21 +667,23 @@ class QueryApi():
                         jsonResponse.raise_for_status()
                     except requests.exceptions.ConnectTimeout:
                         if i < tries - 1: # i is zero indexed
-                            logging.error("TSIClient: The request to the TSI api timed out.")
+                            logging.critical("TSIClient: The request to the TSI api timed out, retrying.")
                             continue
                         else:
+                            logging.critical("TSIClient: The request to the TSI api timed out, giving up.")
                             raise
                     except requests.exceptions.HTTPError:
                         if i < tries - 1: # i is zero indexed
-                            logging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
+                            logging.critical("TSIClient: The request to the TSI api returned an unsuccessfull status code, retrying.")
                             continue
                         else:
-                            raise
+                            logging.critical("TSIClient: The request to the TSI api returned an unsuccessfull status code, giving up.")
+                        raise
                     break
 
                 response = json.loads(jsonResponse.text)
 
-                #logging.critical('response: {tt}'.format(tt=response))
+                logging.critical('response: {tt}'.format(tt=response))
                 
                 if "error" in response:
                     if "innerError" in response["error"]:
@@ -695,7 +699,7 @@ class QueryApi():
             #handle 2nd response incomplete with no data and continuationtoken
             if ((response["timestamps"] == []) and ('continuationToken' in list(response.keys()))):
                 logging.critical("2nd Continuation token with empty timestamp for tag: {tag}".format(tag=colNames[i]))
-                #logging.critical("*******Retrying with token*********")
+                logging.critical("*******Retrying with token*********")
                 headers = {
                     "x-ms-client-application-name": self._applicationName,
                     "Authorization": authorizationToken,
@@ -703,8 +707,8 @@ class QueryApi():
                     "cache-control": "no-cache",
                     'x-ms-continuation': response['continuationToken'],
                 }
-                #logging.critical('headers Q2: {tt}'.format(tt=headers))
-                tries = 10
+                logging.critical('headers Q2: {tt}'.format(tt=headers))
+                tries = 5
                 for i in range(tries):
                     try:
                         jsonResponse = requests.request(
@@ -717,21 +721,23 @@ class QueryApi():
                         jsonResponse.raise_for_status()
                     except requests.exceptions.ConnectTimeout:
                         if i < tries - 1: # i is zero indexed
-                            logging.error("TSIClient: The request to the TSI api timed out.")
+                            logging.critical("TSIClient: The request to the TSI api timed out, retrying.")
                             continue
                         else:
+                            logging.critical("TSIClient: The request to the TSI api timed out, giving up.")
                             raise
                     except requests.exceptions.HTTPError:
                         if i < tries - 1: # i is zero indexed
-                            logging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
+                            logging.critical("TSIClient: The request to the TSI api returned an unsuccessfull status code, retrying.")
                             continue
                         else:
-                            raise
+                            logging.critical("TSIClient: The request to the TSI api returned an unsuccessfull status code, giving up.")
+                        raise
                     break
 
                 response = json.loads(jsonResponse.text)
 
-                #logging.critical('response: {tt}'.format(tt=response))
+                logging.critical('response: {tt}'.format(tt=response))
                 
                 if "error" in response:
                     if "innerError" in response["error"]:
@@ -747,7 +753,7 @@ class QueryApi():
             #handle 3rd response incomplete with no data and continuationtoken
             if ((response["timestamps"] == []) and ('continuationToken' in list(response.keys()))):
                 logging.critical("3rd Continuation token with empty timestamp for tag: {tag}".format(tag=colNames[i]))
-                #logging.critical("*******Retrying with token*********")
+                logging.critical("*******Retrying with token*********")
                 headers = {
                     "x-ms-client-application-name": self._applicationName,
                     "Authorization": authorizationToken,
@@ -755,8 +761,8 @@ class QueryApi():
                     "cache-control": "no-cache",
                     'x-ms-continuation': response['continuationToken'],
                 }
-                #logging.critical('headers Q2: {tt}'.format(tt=headers))
-                tries = 10
+                logging.critical('headers Q2: {tt}'.format(tt=headers))
+                tries = 5
                 for i in range(tries):
                     try:
                         jsonResponse = requests.request(
@@ -769,16 +775,18 @@ class QueryApi():
                         jsonResponse.raise_for_status()
                     except requests.exceptions.ConnectTimeout:
                         if i < tries - 1: # i is zero indexed
-                            logging.error("TSIClient: The request to the TSI api timed out.")
+                            logging.critical("TSIClient: The request to the TSI api timed out, retrying.")
                             continue
                         else:
+                            logging.critical("TSIClient: The request to the TSI api timed out, giving up.")
                             raise
                     except requests.exceptions.HTTPError:
                         if i < tries - 1: # i is zero indexed
-                            logging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
+                            logging.critical("TSIClient: The request to the TSI api returned an unsuccessfull status code, retrying.")
                             continue
                         else:
-                            raise
+                            logging.critical("TSIClient: The request to the TSI api returned an unsuccessfull status code, giving up.")
+                        raise
                     break
 
                 response = json.loads(jsonResponse.text)
@@ -799,7 +807,7 @@ class QueryApi():
             #handle 4th response incomplete with no data and continuationtoken
             if ((response["timestamps"] == []) and ('continuationToken' in list(response.keys()))):
                 logging.critical("4th Continuation token with empty timestamp for tag: {tag}".format(tag=colNames[i]))
-                #logging.critical("*******Retrying with token*********")
+                logging.critical("*******Retrying with token*********")
                 headers = {
                     "x-ms-client-application-name": self._applicationName,
                     "Authorization": authorizationToken,
@@ -807,8 +815,8 @@ class QueryApi():
                     "cache-control": "no-cache",
                     'x-ms-continuation': response['continuationToken'],
                 }
-                #logging.critical('headers Q2: {tt}'.format(tt=headers))
-                tries = 10
+                logging.critical('headers Q2: {tt}'.format(tt=headers))
+                tries = 5
                 for i in range(tries):
                     try:
                         jsonResponse = requests.request(
@@ -821,16 +829,18 @@ class QueryApi():
                         jsonResponse.raise_for_status()
                     except requests.exceptions.ConnectTimeout:
                         if i < tries - 1: # i is zero indexed
-                            logging.error("TSIClient: The request to the TSI api timed out.")
+                            logging.critical("TSIClient: The request to the TSI api timed out, retrying.")
                             continue
                         else:
+                            logging.critical("TSIClient: The request to the TSI api timed out, giving up.")
                             raise
                     except requests.exceptions.HTTPError:
                         if i < tries - 1: # i is zero indexed
-                            logging.error("TSIClient: The request to the TSI api returned an unsuccessfull status code.")
+                            logging.critical("TSIClient: The request to the TSI api returned an unsuccessfull status code, retrying.")
                             continue
                         else:
-                            raise
+                            logging.critical("TSIClient: The request to the TSI api returned an unsuccessfull status code, giving up.")
+                        raise
                     break
 
                 response = json.loads(jsonResponse.text)
