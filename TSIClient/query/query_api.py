@@ -601,7 +601,7 @@ class QueryApi():
             #logging.critical('headers Q1: {tt}'.format(tt=headers))
             #logging.critical('params: {tt}'.format(tt=querystring))
 
-            tries = 5
+            tries = 15
             for loopi in range(tries):
                 try:
                     jsonResponse = requests.request(
@@ -655,7 +655,7 @@ class QueryApi():
                     'x-ms-continuation': response['continuationToken'],
                 }
                 #logging.critical('headers Q2: {tt}'.format(tt=headers))
-                tries = 5
+                tries = 15
                 for loopi in range(tries):
                     try:
                         jsonResponse = requests.request(
@@ -709,7 +709,7 @@ class QueryApi():
                     'x-ms-continuation': response['continuationToken'],
                 }
                 #logging.critical('headers Q2: {tt}'.format(tt=headers))
-                tries = 5
+                tries = 15
                 for loopi in range(tries):
                     try:
                         jsonResponse = requests.request(
@@ -763,7 +763,7 @@ class QueryApi():
                     'x-ms-continuation': response['continuationToken'],
                 }
                 #logging.critical('headers Q2: {tt}'.format(tt=headers))
-                tries = 5
+                tries = 15
                 for loopi in range(tries):
                     try:
                         jsonResponse = requests.request(
@@ -817,7 +817,7 @@ class QueryApi():
                     'x-ms-continuation': response['continuationToken'],
                 }
                 #logging.critical('headers Q2: {tt}'.format(tt=headers))
-                tries = 5
+                tries = 15
                 for loopi in range(tries):
                     try:
                         jsonResponse = requests.request(
