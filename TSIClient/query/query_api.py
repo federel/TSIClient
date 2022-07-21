@@ -542,7 +542,7 @@ class QueryApi():
             colNames = otherColNamesThanTimeseriesIds
         else:
             colNames = timeseries
-                   
+
         #logging.critical('colNames: {tt}'.format(tt=colNames))
 
         for i, _ in enumerate(timeseries):
@@ -630,7 +630,7 @@ class QueryApi():
 
             response = json.loads(jsonResponse.text)
 
-            logging.critical('response: {tt}'.format(tt=response))
+            #logging.critical('response: {tt}'.format(tt=response))
                 
             if "error" in response:
                 if "innerError" in response["error"]:
@@ -684,7 +684,7 @@ class QueryApi():
 
                 response = json.loads(jsonResponse.text)
 
-                logging.critical('response: {tt}'.format(tt=response))
+                #logging.critical('response: {tt}'.format(tt=response))
                 
                 if "error" in response:
                     if "innerError" in response["error"]:
@@ -738,7 +738,7 @@ class QueryApi():
 
                 response = json.loads(jsonResponse.text)
 
-                logging.critical('response: {tt}'.format(tt=response))
+                #logging.critical('response: {tt}'.format(tt=response))
                 
                 if "error" in response:
                     if "innerError" in response["error"]:
