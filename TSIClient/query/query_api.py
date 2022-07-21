@@ -542,7 +542,7 @@ class QueryApi():
             colNames = otherColNamesThanTimeseriesIds
         else:
             colNames = timeseries
-        
+                   
         #logging.critical('colNames: {tt}'.format(tt=colNames))
 
         for i, _ in enumerate(timeseries):
